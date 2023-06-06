@@ -1,17 +1,28 @@
 import utils
 import readcsv
 import charts
+import pandas as pd
 #! revisar clases de map y lambda
 
 
 def run():
-    data = readcsv.read_csv('data.csv')
-    data = list(filter(lambda i: i['Continent'] == 'South America', data))
+    '''
 
-    countries = list(map(lambda x: x['Country/Territory'], data))
-    percentages = list(map(lambda x: x['World Population Percentage'], data))
-    charts.generate_pie_chart(countries, percentages)
+    data = list(filter(lambda i: i['Continent'] == 'South America', data)) #* c
+    countries = list(map(lambda x: x['Country/Territory'], data)) #* a
+    percentages = list(map(lambda x: x['World Population Percentage'], data)) #* b
     
+    '''
+
+    df = pd.read_csv('data.csv')
+    df = df[df['Continent'] == 'Africa'] #* c
+
+    countries = df['Country/Territory'].values #* a
+    percentages = df['World Population Percentage'].values #* b
+
+    charts.generate_pie_chart(countries, percentages)
+
+    data = readcsv.read_csv('data.csv')
     country = input('Ingrese el país -> ')
     country = country.title()
     
